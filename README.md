@@ -1,8 +1,49 @@
-# breed
+# Breed
 
-Breed is a Helper Module which makes working with working with types and typeof easy as easy as it should be.
+Breed is a Helper Module which makes working with types and typeof easy as easy as it should be.
 
-Breed currently supports following types (see more detail in documentation below)
+You are even able to extend Breed with [registering your own Classes](#register-your-own-classes-1) and do checks like this:
+
+```
+function Person () {}
+breed.register(Person);
+breed.isPerson(new Person()); // true
+```
+
+
+##Table of Contents
+
+
+- [Getting Started](#getting-started)
+- [Documentation](#documentation)
+  - [Basic Supported Types](#basic-supported-types-1)
+  - [is… and isnt…](#is-and-isnt)
+  - [is](#is)
+  - [Constants](#constants)
+  - [Register your own Classes](#register-your-own-classes-1)
+- [Examples](#examples)
+  - [Basic Supported Types](#basic-supported-types-2)
+  - [Register your own Classes](#register-your-own-classes-2)
+- [Contributing](#contributing)
+- [Release History](#release-history)
+- [License](#license)
+
+
+## Getting Started
+Install the module with: `npm install breed`
+
+```
+var breed = require('breed');
+breed.isArray([]); // true
+breed.isntArray([]); // false
+breed.is([]) // 'array'
+breed.ARRAY // 'array'
+
+```
+
+## Documentation
+
+### Basic Supported Types
 
 * Null
 * Object
@@ -14,6 +55,9 @@ Breed currently supports following types (see more detail in documentation below
 * Function
 * String
 * Undefined
+* JSON
+* Finite
+* NaN
 * Error
 * EvalError
 * InternalError
@@ -23,152 +67,149 @@ Breed currently supports following types (see more detail in documentation below
 * TypeError
 * URIError
 
+### is… and isnt...
 
-## Getting Started
-Install the module with: `npm install breed`
+Breed always has for every Type 2 Functions:
 
 ```
-var breed = require('breed');
-breed.isArray([]); // true
-breed.isntArray([]); // false
-breed.get([]) // 'array'
+breed.is...
+breed.isnt...
+```
+
+for example:
+
+```
+breed.isFunction()
+breed.isntFunction()
+
+// or
+
+breed.isUndefined()
+breed.isntUndefined()
+
+// or
+
+breed.isJSON()
+breed.isntJSON()
+
+// … and so on
+```
+
+There is 1 exceptional Case where isInfinite is just a little bit nicer than isntFinite, so both Cases are supported:
+
+```
+breed.isntFinite() === breed.isInfinite()
+```
+
+### - is
+
+You are also able to check via breed's is-Function which will always return the type as a String:
+
+```
+breed.is([]) // 'array'
+breed.is(1) // 'number'
+breed.is({}) // 'object'
+...
+```
+
+### Constants
+
+Every type has its 'Constant' Variable (always uppercase) whos value is always lowercase:
+
+```
 breed.ARRAY // 'array'
-
-```
-
-## Documentation
-
-###General-purpose constructors
-
-###### Array
-
-```
-breed.isArray([]) // true
-breed.isntArray([]) // false
-breed.ARRAY // 'array'
-```
-
-###### Boolean
-
-```
-breed.isBoolean(true) // true
-breed.isntBoolean(true) // false
-breed.BOOLEAN // 'boolean'
-```
-
-###### Date
-
-```
-breed.isDate(new Date()) // true
-breed.isntDate(new Date()) // false
-breed.DATE // 'date'
-```
-###### Function
-
-```
-breed.isFunction(function () {}) // true
-breed.isntFunction(function () {}) // false
-breed.FUNCTION // 'function'
-```
-
-###### Number
-
-```
-breed.isNumber(1) // true
-breed.isntNumber(1) // false
 breed.NUMBER // 'number'
-```
-
-###### Object
-
-```
-breed.isObject({}) // true
-breed.isntObject({}) // false
 breed.OBJECT // 'object'
-```
-###### RegExp
-
-```
-breed.isRegExp(/1/) // true
-breed.isntRegExp(/1/) // false
-breed.REGEXP // 'regexp'
-```
-###### String
-
-```
-breed.isString('') // true
-breed.isntString('') // false
-breed.STRING // 'string'
+...
 ```
 
-###Error Constructors
-
-* Error
-* EvalError
-* RangeError
-* ReferenceError
-* SyntaxError
-* TypeError
-* URIError
-
-###### Examples
+So you can combine it with the is-Function:
 
 ```
-breed.isError(new Error()) // true
-breed.isError(new TypeError()) // true
-breed.isError(new EvalError()) // true
-breed.isError(new RangeError()) // true
-breed.isntError(new Error()) // false
-breed.isRangeError(new RangeError()) // true
-breed.ERROR // 'error'
-breed.RANGEERROR // 'rangeerror'
-breed.TYPEERROR // 'typeerror'
+breed.is([]) === breed.ARRAY // true
+breed.is(1) === breed.NUMBER // true
+breed.is({}) === breed.OBJECT // true
+...
 ```
 
-###Other
+### Register your own Classes
 
-###### Null
-
-```
-breed.isNull(null) // true
-breed.isntNull(null) // false
-breed.NULL // 'null'
-```
-###### Undefined
+Just add as much Classes as you want:
 
 ```
-breed.isUndefined() // true
-breed.isntUndefined() // false
-breed.UNDEFINED // 'undefined'
+breed.register(*functions)
 ```
+
+The best about that is, that breed.register even supports Inheritance (see the example: [Register your own Classes](#register-your-own-classes-1))
+
 
 ## Examples
 
+### Basic Supported Types
+```
+
+// some Functions
+breed.isObject({}) // true
+breed.isFunction(function () {}) // true
+breed.isntDate(new Date()) // false
+breed.isntUndefined() // false
+
+// errors all have the super-constructor Error
+breed.isRangeError(new RangeError()) // true
+breed.isError(new RangeError()) // true
+
+// some constants
+breed.ERROR // 'error'
+breed.RANGEERROR // 'rangeerror'
+breed.DATE // 'date'
+breed.ARRAY // 'array'
+```
+
+### Register your own Classes
 ```
 var breed = require('breed');
+var util = require('util');
 
-if (breed.isRegExp(/1/) ) {
-  // do your Stuff
-}
+// your code creates some Functions
+function Person () {}
+function Child () {}
+function Mom () {}
+util.inherits(Child, Person);
+util.inherits(Mom, Person);
 
-// or you could use the constants
-if (breed.get(/1/) === breed.REGEXP) {
-  // do your Stuff
-}
+// register your classes
+breed.register(Person, Child, Mom);
+
+// do typechecking
+breed.isPerson(new Person()) // true
+breed.isChild(new Child()) // true
+breed.isPerson(new Child()) // true
+breed.isMom(new Mom()) // true
+breed.isPerson(new Mom()) // true
+breed.isntChild(new Mom()) // true
+
+// constants
+breed.PERSON // 'person'
+breed.CHILD // 'child'
+breed.MOM // 'mom'
 ```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/):
 
-```
-$ grunt default
-```
+- Available Tasks:
+  - jshint
+  - nodeunit
+  - default (jshint + nodeunit)
 
-## TODOs
-* Support Typed array constructors
-* isJSON, isNaN
 
 ## Release History
+
+- 0.2.0 Second Release
+   - Implement JSOn, NaN, Finite
+   - author breed.register()
+   - rename breed.get() to breed.is()
+
 
 * 0.1.0 Initial Release
 
