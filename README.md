@@ -16,14 +16,14 @@ breed.isPerson(new Person()); // true
 
 - [Getting Started](#getting-started)
 - [Documentation](#documentation)
-  - [Basic Supported Types](#basic-supported-types-1)
+  - [Basic Supported Types](#basic-supported-types)
   - [is… and isnt…](#is-and-isnt)
-  - [is](#is)
+  - [is](#-is)
   - [Constants](#constants)
-  - [Register your own Classes](#register-your-own-classes-1)
+  - [Register your own Classes](#register-your-own-classes)
 - [Examples](#examples)
-  - [Basic Supported Types](#basic-supported-types-2)
-  - [Register your own Classes](#register-your-own-classes-2)
+  - [Basic Supported Types](#basic-supported-types)
+  - [Register your own Classes](#register-your-own-classes)
 - [Contributing](#contributing)
 - [Release History](#release-history)
 - [License](#license)
@@ -101,7 +101,7 @@ There is 1 exceptional Case where isInfinite is just a little bit nicer than isn
 breed.isntFinite() === breed.isInfinite()
 ```
 
-### - is
+### is
 
 You are also able to check via breed's is-Function which will always return the type as a String:
 
