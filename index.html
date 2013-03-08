@@ -39,58 +39,23 @@
         <ul></ul>
       </nav>
       <section>
-        <h1>Breed</h1>
-
-<p>Breed is a Helper Module which makes working with types and typeof easy as easy as it should be.</p>
-
-<p>You are even able to extend Breed with <a href="#register-your-own-classes-1">registering your own Classes</a> and do checks like this:</p>
-
-<pre><code>function Person () {}
-breed.register(Person);
-breed.isPerson(new Person()); // true
-</code></pre>
-
-<h2>Table of Contents</h2>
-
-<ul>
-<li><a href="#getting-started">Getting Started</a></li>
-<li>
-<a href="#documentation">Documentation</a>
-
-<ul>
-<li><a href="#basic-supported-types">Basic Supported Types</a></li>
-<li><a href="#is-and-isnt">is… and isnt…</a></li>
-<li><a href="#is">is</a></li>
-<li><a href="#constants">Constants</a></li>
-<li><a href="#register-your-own-classes">Register your own Classes</a></li>
-</ul>
-</li>
-<li>
-<a href="#examples">Examples</a>
-
-<ul>
-<li><a href="#basic-supported-types-1">Basic Supported Types</a></li>
-<li><a href="#register-your-own-classes-1">Register your own Classes</a></li>
-</ul>
-</li>
-<li><a href="#contributing">Contributing</a></li>
-<li><a href="#release-history">Release History</a></li>
-<li><a href="#license">License</a></li>
-</ul><h2>Getting Started</h2>
+        <h2>Getting Started</h2>
 
 <p>Install the module with: <code>npm install breed</code></p>
 
-<pre><code>var breed = require('breed');
-breed.isArray([]); // true
-breed.isntArray([]); // false
-breed.is([]) // 'array'
-breed.ARRAY // 'array'
+<p>And include it in your code</p>
 
+<pre><code>var breed = require('breed');
 </code></pre>
 
-<h2>Documentation</h2>
+<p>So you can use it (eg. do something with any error which is not a TypeError)</p>
 
-<h3>Basic Supported Types</h3>
+<pre><code>if(breed.isError(e) &amp;&amp; breed.isntTypeError(e)) {
+  // your code here
+}
+</code></pre>
+
+<h2>Basic Supported Types</h2>
 
 <ul>
 <li>Null</li>
@@ -114,40 +79,32 @@ breed.ARRAY // 'array'
 <li>SyntaxError</li>
 <li>TypeError</li>
 <li>URIError</li>
-</ul><h3>is… and isnt...</h3>
+</ul><h2>is… and isnt...</h2>
 
-<p>Breed always has for every Type 2 Functions:</p>
+<p>Breed always has 2 Functions for every Type</p>
 
 <pre><code>breed.is...
 breed.isnt...
 </code></pre>
 
-<p>for example:</p>
+<h3>Examples</h3>
 
-<pre><code>breed.isFunction()
-breed.isntFunction()
-
-// or
-
-breed.isUndefined()
-breed.isntUndefined()
-
-// or
-
-breed.isJSON()
-breed.isntJSON()
-
-// … and so on
+<pre><code>breed.isObject({}) // true
+breed.isFunction(function () {}) // true
+breed.isntDate(new Date()) // false
+breed.isntUndefined() // false
 </code></pre>
 
-<p>There is 1 exceptional Case where isInfinite is just a little bit nicer than isntFinite, so both Cases are supported:</p>
+<p>There is 1 exceptional Case where isInfinite is just a little bit nicer to read than isntFinite, so both Cases are supported</p>
 
 <pre><code>breed.isntFinite() === breed.isInfinite()
 </code></pre>
 
-<h3>is</h3>
+<h2>is</h2>
 
-<p>You are also able to check via breed's is-Function which will always return the type as a String:</p>
+<p>You are also able to check via Breed's is-Function which will always return the type as a String</p>
+
+<h3>Examples</h3>
 
 <pre><code>breed.is([]) // 'array'
 breed.is(1) // 'number'
@@ -155,61 +112,39 @@ breed.is({}) // 'object'
 ...
 </code></pre>
 
-<h3>Constants</h3>
+<h2>Constants</h2>
 
-<p>Every type has its 'Constant' Variable (always uppercase) whos value is always lowercase:</p>
+<p>Every type has its 'Constant' Variable (always uppercase) whos value is always lowercase</p>
+
+<h3>Examples</h3>
 
 <pre><code>breed.ARRAY // 'array'
 breed.NUMBER // 'number'
 breed.OBJECT // 'object'
-...
-</code></pre>
+breed.REGEXP // 'regexp'
 
-<p>So you can combine it with the is-Function:</p>
-
-<pre><code>breed.is([]) === breed.ARRAY // true
+// combined with the is-Function
+breed.is([]) === breed.ARRAY // true
 breed.is(1) === breed.NUMBER // true
 breed.is({}) === breed.OBJECT // true
-...
+breed.is(/1/) === breed.REGEXP // true
 </code></pre>
 
-<h3>Register your own Classes</h3>
+<h2>Register your own Classes</h2>
 
-<p>Just add as much Classes as you want:</p>
+<p>Just add as much Classes as you want within 1 Register-Call</p>
 
 <pre><code>breed.register(*functions)
 </code></pre>
 
-<p>The best about that is, that breed.register even supports Inheritance (see the example: <a href="#register-your-own-classes-1">Register your own Classes</a>)</p>
+<p>The best about that is, that breed.register even supports Inheritance!</p>
 
-<h2>Examples</h2>
-
-<h3>Basic Supported Types</h3>
-
-<pre><code>
-// some Functions
-breed.isObject({}) // true
-breed.isFunction(function () {}) // true
-breed.isntDate(new Date()) // false
-breed.isntUndefined() // false
-
-// errors all have the super-constructor Error
-breed.isRangeError(new RangeError()) // true
-breed.isError(new RangeError()) // true
-
-// some constants
-breed.ERROR // 'error'
-breed.RANGEERROR // 'rangeerror'
-breed.DATE // 'date'
-breed.ARRAY // 'array'
-</code></pre>
-
-<h3>Register your own Classes</h3>
+<h3>Examples</h3>
 
 <pre><code>var breed = require('breed');
 var util = require('util');
 
-// your code creates some Functions
+// your code creates some Functions (including inheritance)
 function Person () {}
 function Child () {}
 function Mom () {}
@@ -233,33 +168,7 @@ breed.CHILD // 'child'
 breed.MOM // 'mom'
 </code></pre>
 
-<h2>Contributing</h2>
-
-<p>In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using <a href="http://gruntjs.com/">Grunt</a>:</p>
-
-<ul>
-<li>Available Tasks:
-
-<ul>
-<li>jshint</li>
-<li>nodeunit</li>
-<li>default (jshint + nodeunit)</li>
-</ul>
-</li>
-</ul><h2>Release History</h2>
-
-<ul>
-<li>
-<p>0.2.0 Second Release</p>
-
-<ul>
-<li>Implement JSOn, NaN, Finite</li>
-<li>author breed.register()</li>
-<li>rename breed.get() to breed.is()</li>
-</ul>
-</li>
-<li><p>0.1.0 Initial Release</p></li>
-</ul><h2>License</h2>
+<h2>License</h2>
 
 <p>Copyright (c) 2013 Bastian Behrens
 Licensed under the MIT license.</p>
