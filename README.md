@@ -2,7 +2,7 @@
 
 ## About
 
-Breed is a Helper Module which makes working with types and typeof easy as easy as it should be.
+Breed is a Helper Module which makes working with types and typeof as easy as it should be.
 
 You are even able to extend Breed with your own Functions.
 
