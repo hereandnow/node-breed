@@ -2,7 +2,7 @@
   "name": "breed",
   "description": "Breed is a Helper Module which makes working with types and typeof easy as easy as it should be",
   "version": "0.2.1",
-  "homepage": "https://github.com/hereandnow/node-breed",
+  "homepage": "http://hereandnow.github.com/node-breed/",
   "author": {
     "name": "Bastian Behrens",
     "email": "hereandnow78@googlemail.com"
