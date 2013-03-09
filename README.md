@@ -33,6 +33,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+- 0.3.0
+  - Refactor for more performance
+
 - 0.2.1
   - Move Documentation to http://hereandnow.github.com/node-breed/
   - Fix some typos in Docs
