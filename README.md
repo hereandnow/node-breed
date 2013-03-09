@@ -33,7 +33,11 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-- 0.2.0 Second Release
+- 0.2.1
+  - Move Documentation to http://hereandnow.github.com/node-breed/
+  - Fix some typos in Docs
+
+- 0.2.0
    - Implement JSON, NaN, Finite
    - author breed.register()
    - rename breed.get() to breed.is()
