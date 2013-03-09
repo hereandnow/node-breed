@@ -20,11 +20,12 @@ exports['other'] = {
     test.done();
   },
   'finite': function (test) {
-    test.expect(4);
+    test.expect(5);
     test.equal(breed.isFinite(1), true, 'finite number is finite');
     test.equal(breed.isFinite({}), false, 'object is not finite');
     test.equal(breed.isntFinite(1), false, 'finite number is finite');
     test.equal(breed.isntFinite({}), true, 'object is not finite');
+    test.equal(breed.isInfinite({}), true, 'object is not finite');
     test.done();
   }
 };

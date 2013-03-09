@@ -1,7 +1,7 @@
 {
   "name": "breed",
   "description": "Breed is a Helper Module which makes working with types and typeof easy as easy as it should be",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "homepage": "http://hereandnow.github.com/node-breed/",
   "author": {
     "name": "Bastian Behrens",
