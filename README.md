@@ -15,7 +15,7 @@ Install the module with: `npm install breed`
 var breed = require('breed');
 function Person () {}
 breed.register(Person);
-breed.isObect(new Person()); // true
+breed.isObject(new Person()); // true
 breed.isPerson(new Person()); // true
 breed.isArray(new Person()); // false
 breed.isntPerson(new Person()); // false
