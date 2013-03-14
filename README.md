@@ -33,6 +33,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+- 0.3.1
+  - Deploy new Doc
+
 - 0.3.0
   - Refactor for more performance
 
