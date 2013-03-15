@@ -1,5 +1,8 @@
 # Breed
 
+[![build status](https://secure.travis-ci.org/hereandnow/node-breed.png)](http://travis-ci.org/hereandnow/node-breed)
+
+
 ## About
 
 Breed is a Helper Module which makes working with types and typeof as easy as it should be.
